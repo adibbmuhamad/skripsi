@@ -20,6 +20,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
+use Rupadana\FilamentAnnounce\FilamentAnnouncePlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -76,6 +77,13 @@ class AdminPanelProvider extends PanelProvider
                    ->setSort(10)
                    ->shouldShowDeleteAccountForm(false)
                    ->shouldShowBrowserSessionsForm()
-                   ]);
+                   ])
+
+                   ->plugin(
+                    FilamentAnnouncePlugin::make()
+                        ->pollingInterval('30s') // optional, by default it is set to null
+                        ->defaultColor(Color::Blue) // optional, by default it is set to "primary"
+
+                   );
     }
 }
