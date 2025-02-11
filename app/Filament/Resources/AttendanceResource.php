@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Textarea;
 
 class AttendanceResource extends Resource
 {
@@ -33,9 +34,17 @@ class AttendanceResource extends Resource
                 ->label('Date')
                 ->required(),
             Select::make('status')
-                ->options(['present' => 'Present', 'absent' => 'Absent'])
+                ->options([
+                    'present' => 'Present',
+                    'absent' => 'Absent',
+                    'permission' => 'Permission'
+                ])
                 ->label('Status')
                 ->required(),
+            Textarea::make('permission_reason') // Alasan izin
+                ->label('Permission Reason')
+                ->visible(fn ($get) => $get('status') === 'permission') // Tampilkan hanya jika status = izin
+                ->required(fn ($get) => $get('status') === 'permission'), // Wajib diisi jika status izin
         ]);
     }
 
@@ -46,6 +55,8 @@ class AttendanceResource extends Resource
                 TextColumn::make('student.name')->sortable(),
                 TextColumn::make('status')->sortable(),
                 TextColumn::make('date')->sortable(),
+                TextColumn::make('permission_reason') // Menampilkan alasan izin di tabel
+                ->visible(fn ($record) => optional($record)->status === 'permission'), // Menggunakan optional untuk mencegah error null
             ])
             ->filters([
                 //
