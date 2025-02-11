@@ -17,10 +17,14 @@ class AchievementSeeder extends Seeder
         $students = Student::all();
 
         foreach ($students as $student) {
+            // Tentukan gambar dummy yang akan diupload
+            $photo = 'achievements/dummy' . rand(1, 3) . '.jpg'; // Misalnya gambar dummy1.jpg, dummy2.jpg, dummy3.jpg
+
             Achievement::create([
                 'student_id' => $student->id,
                 'achievement_name' => $faker->word(), // Menghasilkan kata dalam bahasa Indonesia
                 'description' => $faker->sentence(), // Menghasilkan kalimat dalam bahasa Indonesia
+                'photo' => $photo, // Menyimpan nama file gambar
             ]);
         }
     }

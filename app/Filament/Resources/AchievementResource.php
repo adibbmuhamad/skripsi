@@ -16,6 +16,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\FileUpload;
 
 class AchievementResource extends Resource
 {
@@ -36,6 +37,12 @@ class AchievementResource extends Resource
             Textarea::make('description')
                 ->label('Description')
                 ->required(),
+            FileUpload::make('photo') // Menambahkan kolom foto
+                ->label('Photo')
+                ->image() // Tipe file gambar
+                ->disk('public') // Tentukan disk untuk penyimpanan (pastikan konfigurasi sudah ada di `config/filesystems.php`)
+                ->directory('achievements') // Folder tempat foto disimpan
+                ->required(), // Pastikan foto diupload
         ]);
     }
 
@@ -46,6 +53,8 @@ class AchievementResource extends Resource
                 TextColumn::make('student.name')->sortable(),
                 TextColumn::make('achievement_name')->sortable(),
                 TextColumn::make('description')->limit(50),
+                TextColumn::make('photo')->formatStateUsing(fn ($state) => $state ? "<img src='/storage/{$state}' alt='Photo' class='w-20 h-20'>" : 'No photo')
+                ->html() // Menampilkan foto pada kolom tabel
             ])
             ->filters([
                 //
