@@ -20,7 +20,7 @@ class HealthReportResource extends Resource
 {
     protected static ?string $model = HealthReport::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-heart';
 
     public static function form(Form $form): Form
     {
