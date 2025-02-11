@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 
 class StudentResource extends Resource
 {
@@ -35,6 +36,13 @@ class StudentResource extends Resource
                 ->label('Parent Email')
                 ->required()
                 ->email(),
+            TextInput::make('nisn')
+                ->label('NISN')
+                ->required()
+                ->maxLength(10),
+            Textarea::make('address')
+                ->label('Address')
+                ->required(),
         ]);
     }
 
@@ -45,6 +53,8 @@ class StudentResource extends Resource
                 TextColumn::make('name')->sortable(),
                 TextColumn::make('class')->sortable(),
                 TextColumn::make('parent_email')->sortable(),
+                TextColumn::make('nisn')->sortable(),
+                TextColumn::make('address')->limit(50),
             ])
             ->filters([
                 //

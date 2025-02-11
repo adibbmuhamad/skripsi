@@ -19,6 +19,8 @@ class StudentSeeder extends Seeder
                 'name' => $faker->name(), // Nama acak dalam bahasa Indonesia
                 'class' => $faker->word(), // Kelas acak (misalnya "X IPA")
                 'parent_email' => $faker->email(), // Email orangtua acak
+                'nisn' => $faker->numerify('##########'), // Menghasilkan NISN berupa angka acak
+                'address' => $faker->address(), // Alamat acak (misalnya alamat lengkap)
             ]);
         }
     }
