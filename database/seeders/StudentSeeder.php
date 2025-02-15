@@ -13,11 +13,13 @@ class StudentSeeder extends Seeder
     {
         $faker = Faker::create('id_ID'); // Menentukan locale Indonesia
 
+        $kelas = ['7A', '7B', '8A', '8B', '9A', '9B'];
+
         // Membuat 10 siswa dummy
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 100) as $index) {
             Student::create([
                 'name' => $faker->name(), // Nama acak dalam bahasa Indonesia
-                'class' => $faker->word(), // Kelas acak (misalnya "X IPA")
+                'class' => $faker->randomElement($kelas),
                 'parent_email' => $faker->email(), // Email orangtua acak
                 'nisn' => $faker->numerify('##########'), // Menghasilkan NISN berupa angka acak
                 'address' => $faker->address(), // Alamat acak (misalnya alamat lengkap)
