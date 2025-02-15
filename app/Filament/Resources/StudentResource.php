@@ -59,22 +59,31 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->sortable(),
-                TextColumn::make('class')->sortable(),
-                TextColumn::make('parent_email')->sortable(),
-                TextColumn::make('nisn')->sortable(),
-                TextColumn::make('address')->limit(50),
+                TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(), // Aktifkan search untuk kolom name
+                TextColumn::make('class')
+                    ->sortable(),
+                TextColumn::make('parent_email')
+                    ->sortable()
+                    ->searchable(), // Aktifkan search untuk kolom parent_email
+                TextColumn::make('nisn')
+                    ->sortable()
+                    ->searchable(), // Aktifkan search untuk kolom nisn
+                TextColumn::make('address')
+                    ->limit(50)
+                    ->searchable(), // Aktifkan search untuk kolom address
             ])
             ->filters([
-                SelectFilter::make('class') // Menambahkan filter berdasarkan kelas
-                ->options([
-                    '7A' => '7A',
-                    '7B' => '7B',
-                    '8A' => '8A',
-                    '8B' => '8B',
-                    '9A' => '9A',
-                    '9B' => '9B',
-                ]),
+                SelectFilter::make('class')
+                    ->options([
+                        '7A' => '7A',
+                        '7B' => '7B',
+                        '8A' => '8A',
+                        '8B' => '8B',
+                        '9A' => '9A',
+                        '9B' => '9B',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
