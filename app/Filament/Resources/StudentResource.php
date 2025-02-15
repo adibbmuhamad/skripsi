@@ -16,6 +16,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Filament\Tables\Filters\SelectFilter;
 
 class StudentResource extends Resource
 {
@@ -29,9 +30,17 @@ class StudentResource extends Resource
             TextInput::make('name')
                 ->label('Name')
                 ->required(),
-            TextInput::make('class')
+            Select::make('class')
                 ->label('Class')
-                ->required(),
+                ->required()
+                ->options([ // Menambahkan opsi kelas
+                    '7A' => '7A',
+                    '7B' => '7B',
+                    '8A' => '8A',
+                    '8B' => '8B',
+                    '9A' => '9A',
+                    '9B' => '9B',
+                ]),
             TextInput::make('parent_email')
                 ->label('Parent Email')
                 ->required()
@@ -57,7 +66,15 @@ class StudentResource extends Resource
                 TextColumn::make('address')->limit(50),
             ])
             ->filters([
-                //
+                SelectFilter::make('class') // Menambahkan filter berdasarkan kelas
+                ->options([
+                    '7A' => '7A',
+                    '7B' => '7B',
+                    '8A' => '8A',
+                    '8B' => '8B',
+                    '9A' => '9A',
+                    '9B' => '9B',
+                ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

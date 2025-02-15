@@ -10,7 +10,7 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'class', 'parent_email',
+        'name', 'class', 'parent_email', 'nisn', 'address',
     ];
 
     // Relasi dengan Attendance
