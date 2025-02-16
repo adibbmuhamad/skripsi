@@ -62,9 +62,20 @@ class AttendanceResource extends Resource
                 ->sortable()
                 ->searchable()
                 ->label('Student Name'),
+            TextColumn::make('status')
+                ->sortable()
+                ->badge()
+                ->color(fn (string $state): string => match ($state) {
+                    'present' => 'success',
+                    'absent' => 'danger',
+                    'permission' => 'warning',
+                }),
             TextColumn::make('student.class')
                 ->sortable()
                 ->label('Class'),
+            TextColumn::make('date')
+                ->sortable()
+                ->date('d M Y'),
             TextColumn::make('student.parent_email')
                 ->label('Parent Email')
                 ->searchable(),
@@ -77,17 +88,7 @@ class AttendanceResource extends Resource
                 ->tooltip(function ($record) {
                     return $record->student->address ?? '';
                 }),
-            TextColumn::make('status')
-                ->sortable()
-                ->badge()
-                ->color(fn (string $state): string => match ($state) {
-                    'present' => 'success',
-                    'absent' => 'danger',
-                    'permission' => 'warning',
-                }),
-            TextColumn::make('date')
-                ->sortable()
-                ->date('d M Y'),
+
             TextColumn::make('permission_reason')
                 ->label('Permission Reason')
                 ->visible(fn ($record) => $record?->status === 'permission')
