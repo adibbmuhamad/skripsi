@@ -14,6 +14,9 @@ class DetailHandler extends Handlers
     public static string | null $uri = '/{id}';
     public static string | null $resource = AchievementResource::class;
 
+    //public api key
+    public static bool $public = true;
+
 
     /**
      * Show Achievement
@@ -24,7 +27,7 @@ class DetailHandler extends Handlers
     public function handler(Request $request)
     {
         $id = $request->route('id');
-        
+
         $query = static::getEloquentQuery();
 
         $query = QueryBuilder::for(
