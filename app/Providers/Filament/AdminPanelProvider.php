@@ -25,6 +25,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
+use Rupadana\ApiService\ApiServicePlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -99,6 +100,9 @@ class AdminPanelProvider extends PanelProvider
                         ->url(fn (): string => Dashboard::getUrl())
                         ->icon('heroicon-o-home')
                         ->isActiveWhen(fn () => request()->routeIs('filament.pages.dashboard'))
+                ])
+                ->plugins([
+                    ApiServicePlugin::make()
                 ]);
     }
 }
