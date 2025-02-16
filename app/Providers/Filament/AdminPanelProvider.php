@@ -2,25 +2,29 @@
 
 namespace App\Providers\Filament;
 
-use Filament\Http\Middleware\Authenticate;
-use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
-use Filament\Http\Middleware\AuthenticateSession;
-use Filament\Http\Middleware\DisableBladeIconComponents;
-use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
 use Filament\Panel;
-use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
 use Filament\Widgets;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Illuminate\Cookie\Middleware\EncryptCookies;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Routing\Middleware\SubstituteBindings;
+use Filament\PanelProvider;
+use App\Filament\Pages\Dashboard;
+use Filament\Support\Colors\Color;
+use Filament\Navigation\NavigationItem;
+use App\Filament\Widgets\AttendanceStats;
+use Filament\Http\Middleware\Authenticate;
+use App\Filament\Widgets\AttendanceOverview;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Filament\Http\Middleware\AuthenticateSession;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Rupadana\FilamentAnnounce\FilamentAnnouncePlugin;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
+use Filament\Http\Middleware\DisableBladeIconComponents;
+use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
-use Rupadana\FilamentAnnounce\FilamentAnnouncePlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -84,6 +88,16 @@ class AdminPanelProvider extends PanelProvider
                         ->pollingInterval('30s') // optional, by default it is set to null
                         ->defaultColor(Color::Blue) // optional, by default it is set to "primary"
 
-                   );
+                   )
+                ->widgets([
+                    AttendanceStats::class,
+                    AttendanceOverview::class,
+                ])
+                ->navigationItems([
+                    NavigationItem::make('Dashboard')
+                        ->url(fn (): string => Dashboard::getUrl())
+                        ->icon('heroicon-o-home')
+                        ->isActiveWhen(fn () => request()->routeIs('filament.pages.dashboard'))
+                ]);
     }
 }
