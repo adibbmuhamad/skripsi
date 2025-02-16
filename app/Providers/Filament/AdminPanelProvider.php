@@ -31,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->brandName('SMP ISLAM MIA')
             ->default()
             ->id('admin')
             ->path('admin')
