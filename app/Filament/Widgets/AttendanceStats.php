@@ -17,7 +17,6 @@ class AttendanceStats extends BaseWidget
 
         return [
             Stat::make('Total Absence', $total)
-                ->description('Last 30 days')
                 ->color('primary')
                 ->icon('heroicon-o-calendar-days'),
 
@@ -30,11 +29,13 @@ class AttendanceStats extends BaseWidget
             Stat::make('Absent', $absent)
                 ->description(round(($absent/$total)*100, 2).'%')
                 ->color('danger')
+                ->chart([7, 2, 10, 3, 15, 4, 9])
                 ->icon('heroicon-o-x-circle'),
 
             Stat::make('Permission', $permission)
                 ->description(round(($permission/$total)*100, 2).'%')
                 ->color('warning')
+                ->chart([7, 2, 10, 3, 15, 4, 9])
                 ->icon('heroicon-o-clipboard-document-check'),
         ];
     }
