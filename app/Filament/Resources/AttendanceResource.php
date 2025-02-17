@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\AttendanceResource\Pages;
 use App\Filament\Resources\AttendanceResource\RelationManagers;
+use Filament\Tables\Filters\SelectFilter;
 
 class AttendanceResource extends Resource
 {
@@ -109,6 +110,28 @@ class AttendanceResource extends Resource
                 //         '9B' => '9B',
                 //     ])
                 //     ->label('Filter by Class'),
+                SelectFilter::make('month')
+                    ->label('Filter by Month')
+                    ->options([
+                        '01' => 'January',
+                        '02' => 'February',
+                        '03' => 'March',
+                        '04' => 'April',
+                        '05' => 'May',
+                        '06' => 'June',
+                        '07' => 'July',
+                        '08' => 'August',
+                        '09' => 'September',
+                        '10' => 'October',
+                        '11' => 'November',
+                        '12' => 'December',
+                    ])
+                    ->default(now()->format('m'))
+                    ->query(function (Builder $query, $data) {
+                        if ($data['value']) {
+                            $query->whereMonth('date', $data['value']);
+                        }
+                    }),
                 Tables\Filters\SelectFilter::make('status')
                     ->options([
                         'present' => 'Present',
