@@ -83,19 +83,19 @@ class AdminPanelProvider extends PanelProvider
                    ->setSort(10)
                    ->shouldShowDeleteAccountForm(false)
                    ->shouldShowBrowserSessionsForm()
-                   ])
-                ->widgets([
+            ])
+            ->widgets([
                     AttendanceStats::class,
                     AttendanceOverview::class,
-                ])
-                ->navigationItems([
-                    NavigationItem::make('Dashboard')
+            ])
+            ->navigationItems([
+                NavigationItem::make('Dashboard')
                         ->url(fn (): string => Dashboard::getUrl())
                         ->icon('heroicon-o-home')
                         ->isActiveWhen(fn () => request()->routeIs('filament.pages.dashboard'))
                 ])
-                ->plugins([
+            ->plugins([
                     ApiServicePlugin::make()
-                ]);
+            ]);
     }
 }
