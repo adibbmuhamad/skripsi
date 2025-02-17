@@ -15,12 +15,14 @@ class AttendanceSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
         $students = Student::all();
-        $startDate = Carbon::now()->subDays(30); // Mulai dari 30 hari yang lalu
+        $startDate = Carbon::create(2025, 1, 1); // 1 Januari 2025
+        $endDate = Carbon::create(2025, 2, 29); // 29 Februari 2025
+        $totalDays = $startDate->diffInDays($endDate) + 1; // Total 60 hari
 
         foreach ($students as $student) {
             $currentDate = $startDate->copy();
 
-            for ($i = 0; $i < 30; $i++) {
+            for ($i = 0; $i < $totalDays; $i++) {
                 $status = $this->generateStatus($currentDate);
                 $permissionReason = $status === 'permission' ? $this->generatePermissionReason($faker) : null;
 
@@ -38,23 +40,21 @@ class AttendanceSeeder extends Seeder
 
     private function generateStatus($date)
     {
-        // Probabilitas status
         $rand = rand(1, 100);
         $isWeekend = $date->isWeekend();
 
-        // Weekend memiliki kemungkinan absen lebih tinggi
         if ($isWeekend) {
             return match(true) {
-                $rand <= 70 => 'present',   // 70%
-                $rand <= 85 => 'absent',    // 15%
-                default => 'permission'     // 15%
+                $rand <= 70 => 'present',   // 70% hadir di weekend
+                $rand <= 85 => 'absent',    // 15% absen
+                default => 'permission'     // 15% izin
             };
         }
 
         return match(true) {
-            $rand <= 85 => 'present',   // 85%
-            $rand <= 95 => 'absent',    // 10%
-            default => 'permission'     // 5%
+            $rand <= 85 => 'present',   // 85% hadir di weekdays
+            $rand <= 95 => 'absent',    // 10% absen
+            default => 'permission'     // 5% izin
         };
     }
 
