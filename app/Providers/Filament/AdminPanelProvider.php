@@ -84,13 +84,6 @@ class AdminPanelProvider extends PanelProvider
                    ->shouldShowDeleteAccountForm(false)
                    ->shouldShowBrowserSessionsForm()
                    ])
-
-                   ->plugin(
-                    FilamentAnnouncePlugin::make()
-                        ->pollingInterval('30s') // optional, by default it is set to null
-                        ->defaultColor(Color::Blue) // optional, by default it is set to "primary"
-
-                   )
                 ->widgets([
                     AttendanceStats::class,
                     AttendanceOverview::class,
