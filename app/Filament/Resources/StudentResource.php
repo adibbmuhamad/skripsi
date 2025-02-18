@@ -17,6 +17,9 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Filters\SelectFilter;
+use App\Exports\StudentsExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Filament\Tables\Actions\Action;
 
 class StudentResource extends Resource
 {
@@ -87,11 +90,22 @@ class StudentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->headerActions([
+                Action::make('export')
+                    ->label('Export Excel')
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->action(function ($livewire) {
+                        $filteredData = $livewire->getFilteredTableQuery()->get();
+                        return Excel::download(new StudentsExport($filteredData), 'filtered_attendances.xlsx');
+                    })
+                    ->requiresConfirmation(),
             ]);
     }
 

@@ -2,12 +2,12 @@
 
 namespace App\Exports;
 
-use App\Models\Attendance;
+use App\Models\Student;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class AttendancesExport implements FromCollection, WithHeadings, WithMapping
+class StudentsExport implements FromCollection, WithHeadings, WithMapping
 {
     protected $filteredData;
 
@@ -24,28 +24,22 @@ class AttendancesExport implements FromCollection, WithHeadings, WithMapping
     public function headings(): array
     {
         return [
-            'Student Name',
+            'Name',
             'Class',
-            'Status',
-            'Date',
-            'Permission Reason',
             'Parent Email',
             'NISN',
             'Address',
         ];
     }
 
-    public function map($attendance): array
+    public function map($student): array
     {
         return [
-            $attendance->student->name,
-            $attendance->student->class,
-            $attendance->status,
-            $attendance->date,
-            $attendance->permission_reason ?? '-',
-            $attendance->student->parent_email,
-            $attendance->student->nisn,
-            $attendance->student->address,
+            $student->name,
+            $student->class,
+            $student->parent_email,
+            $student->nisn,
+            $student->address,
         ];
     }
 }
