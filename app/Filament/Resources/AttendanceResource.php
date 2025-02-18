@@ -18,6 +18,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\AttendanceResource\Pages;
 use App\Filament\Resources\AttendanceResource\RelationManagers;
 use Filament\Tables\Filters\SelectFilter;
+use App\Exports\AttendancesExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Filament\Tables\Actions\Action;
 
 class AttendanceResource extends Resource
 {
@@ -177,6 +180,16 @@ class AttendanceResource extends Resource
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
+            ])
+
+            ->headerActions([
+                Action::make('export')
+                    ->label('Export Excel')
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->action(function ($livewire) {
+                        $filteredData = $livewire->getFilteredTableQuery()->get();
+                        return Excel::download(new AttendancesExport($filteredData), 'filtered_attendances.xlsx');
+                    }),
             ]);
     }
 
