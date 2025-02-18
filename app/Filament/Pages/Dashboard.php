@@ -3,8 +3,9 @@
 namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
-use App\Filament\Widgets\AttendanceOverview;
 use App\Filament\Widgets\AttendanceStats;
+use App\Filament\Widgets\AttendanceOverview;
+use App\Filament\Widgets\StudentCountWidget;
 
 
 class Dashboard extends Page
@@ -17,6 +18,7 @@ class Dashboard extends Page
     {
         return [
             AttendanceStats::class,
+            StudentCountWidget::class,
         ];
     }
 
