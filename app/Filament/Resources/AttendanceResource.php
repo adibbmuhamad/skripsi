@@ -178,7 +178,8 @@ class AttendanceResource extends Resource
                     ->action(function ($livewire) {
                         $filteredData = $livewire->getFilteredTableQuery()->get();
                         return Excel::download(new AttendancesExport($filteredData), 'filtered_attendances.xlsx');
-                    }),
+                    })
+                    ->requiresConfirmation(),
             ]);
     }
 
