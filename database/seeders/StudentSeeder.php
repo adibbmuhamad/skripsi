@@ -16,7 +16,7 @@ class StudentSeeder extends Seeder
         $kelas = ['7A', '7B', '8A', '8B', '9A', '9B'];
 
         // Membuat 10 siswa dummy
-        foreach (range(1, 100) as $index) {
+        foreach (range(1, 10) as $index) {
             Student::create([
                 'name' => $faker->name(), // Nama acak dalam bahasa Indonesia
                 'class' => $faker->randomElement($kelas),
