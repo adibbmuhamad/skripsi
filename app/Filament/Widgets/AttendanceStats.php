@@ -3,7 +3,6 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Attendance;
-use App\Models\Student;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -39,11 +38,6 @@ class AttendanceStats extends BaseWidget
                 ->color('warning')
                 ->chart([7, 2, 10, 3, 15, 4, 9])
                 ->icon('heroicon-o-clipboard-document-check'),
-
-            Stat::make('Students', Student::count())
-                ->description('Total registered students')
-                ->icon('heroicon-o-academic-cap')
-                ->color('success'),
         ];
     }
 }
