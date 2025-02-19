@@ -61,9 +61,6 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            ->plugins([
-                FilamentShieldPlugin::make(),
-            ])
             ->authMiddleware([
                 Authenticate::class,
             ])
@@ -78,7 +75,7 @@ class AdminPanelProvider extends PanelProvider
                    ->slug('my-profile')
                    ->setTitle('My Profile')
                    ->setNavigationLabel('My Profile')
-                   ->setNavigationGroup('Group Profile')
+                   ->setNavigationGroup('User Management')
                    ->setIcon('heroicon-o-user')
                    ->setSort(10)
                    ->shouldShowDeleteAccountForm(false)
