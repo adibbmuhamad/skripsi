@@ -39,7 +39,9 @@ class HealthReportResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('student.name')->sortable(),
+                TextColumn::make('student.name')
+                ->sortable()
+                ->searchable(),
                 TextColumn::make('report')->limit(50),
             ])
             ->filters([
