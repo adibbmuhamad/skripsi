@@ -43,7 +43,9 @@ class ViolationResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('student.name')->sortable(),
+                TextColumn::make('student.name')
+                ->sortable()
+                ->searchable(),
                 TextColumn::make('violation_type')->sortable(),
                 TextColumn::make('description')->limit(50),
             ])
