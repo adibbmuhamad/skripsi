@@ -50,9 +50,15 @@ class AchievementResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('student.name')->sortable(),
-                TextColumn::make('achievement_name')->sortable(),
-                TextColumn::make('description')->limit(50),
+                TextColumn::make('student.name')
+                ->sortable()
+                ->searchable(),
+                TextColumn::make('achievement_name')
+                ->sortable()
+                ->searchable(),
+                TextColumn::make('description')
+                ->limit(50)
+                ->searchable(),
                 TextColumn::make('photo')->formatStateUsing(fn ($state) => $state ? "<img src='/storage/{$state}' alt='Photo' class='w-20 h-20'>" : 'No photo')
                 ->html() // Menampilkan foto pada kolom tabel
             ])
