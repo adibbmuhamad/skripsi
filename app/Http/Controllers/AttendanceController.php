@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/AttendanceController.php
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
