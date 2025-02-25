@@ -53,6 +53,13 @@ class AchievementResource extends Resource
                 TextColumn::make('student.name')
                 ->sortable()
                 ->searchable(),
+                TextColumn::make('student.class')
+                ->sortable()
+                ->label('Class'),
+                TextColumn::make('student.nisn')
+                ->sortable()
+                ->label('NISN')
+                ->searchable(),
                 TextColumn::make('achievement_name')
                 ->sortable()
                 ->searchable(),

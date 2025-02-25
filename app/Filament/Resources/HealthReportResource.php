@@ -42,6 +42,13 @@ class HealthReportResource extends Resource
                 TextColumn::make('student.name')
                 ->sortable()
                 ->searchable(),
+                TextColumn::make('student.class')
+                ->sortable()
+                ->label('Class'),
+                TextColumn::make('student.nisn')
+                ->sortable()
+                ->label('NISN')
+                ->searchable(),
                 TextColumn::make('report')->limit(50),
             ])
             ->filters([
