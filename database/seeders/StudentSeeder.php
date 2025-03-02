@@ -16,11 +16,11 @@ class StudentSeeder extends Seeder
         $kelas = ['7A', '7B', '8A', '8B', '9A', '9B'];
 
         // Membuat 10 siswa untuk setiap kelas
-        foreach ($kelas as $class) {
+        foreach ($kelas as $class_room) {
             foreach (range(1, 10) as $index) {
                 Student::create([
                     'name' => $faker->name(), // Nama acak dalam bahasa Indonesia
-                    'class' => $class, // Menggunakan kelas yang sedang diiterasi
+                    'class_room' => $class_room, // Menggunakan kelas yang sedang diiterasi
                     'parent_email' => $faker->email(), // Email orangtua acak
                     'nisn' => $faker->numerify('##########'), // Menghasilkan NISN berupa angka acak
                     'address' => $faker->address(), // Alamat acak (misalnya alamat lengkap)
