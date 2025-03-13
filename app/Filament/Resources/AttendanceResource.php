@@ -79,9 +79,9 @@ class AttendanceResource extends Resource
                     'absent' => 'danger',
                     'permission' => 'warning',
                 }),
-            TextColumn::make('student.class_room')
-                ->sortable()
-                ->label('Class Room'),
+            TextColumn::make('student.classRoom.name') // Perbaiki akses ke relasi classRoom
+                    ->sortable()
+                    ->label('Class Room'),
             TextColumn::make('time') // Tambahkan kolom waktu
                 ->sortable()
                 ->label('Time')
@@ -112,6 +112,9 @@ class AttendanceResource extends Resource
                 Tables\Filters\Filter::make('this_week')
                 ->label('This Week')
                 ->query(fn (Builder $query): Builder => $query->whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])),
+                SelectFilter::make('class_room_id') // Filter berdasarkan class room
+                ->relationship('student.classRoom', 'name')
+                ->label('Class Room'),
                 SelectFilter::make('month')
                     ->label('Filter by Month')
                     ->options([
