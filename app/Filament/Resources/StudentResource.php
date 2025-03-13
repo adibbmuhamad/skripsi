@@ -33,17 +33,10 @@ class StudentResource extends Resource
             TextInput::make('name')
                 ->label('Name')
                 ->required(),
-            Select::make('class_room')
+            Select::make('class_room_id')
                 ->label('Class Room')
-                ->required()
-                ->options([ // Menambahkan opsi kelas
-                    '7A' => '7A',
-                    '7B' => '7B',
-                    '8A' => '8A',
-                    '8B' => '8B',
-                    '9A' => '9A',
-                    '9B' => '9B',
-                ]),
+                ->relationship('classRoom', 'name')
+                ->required(),
             TextInput::make('parent_email')
                 ->label('Parent Email')
                 ->required()
@@ -65,7 +58,7 @@ class StudentResource extends Resource
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(), // Aktifkan search untuk kolom name
-                TextColumn::make('class_room')
+                TextColumn::make('classRoom.name')
                     ->sortable()
                     ->label('Class Room'),
                 TextColumn::make('parent_email')
@@ -79,15 +72,8 @@ class StudentResource extends Resource
                     ->searchable(), // Aktifkan search untuk kolom address
             ])
             ->filters([
-                SelectFilter::make('class_room')
-                    ->options([
-                        '7A' => '7A',
-                        '7B' => '7B',
-                        '8A' => '8A',
-                        '8B' => '8B',
-                        '9A' => '9A',
-                        '9B' => '9B',
-                    ]),
+                SelectFilter::make('class_room_id')
+                    ->relationship('classRoom', 'name'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

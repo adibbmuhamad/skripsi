@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\StudentSeeder;
+use Database\Seeders\ClassRoomSeeder;
 use Database\Seeders\ViolationSeeder;
 use Database\Seeders\AttendanceSeeder;
 use Database\Seeders\AchievementSeeder;
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            ClassRoomSeeder::class,
             StudentSeeder::class,
             AttendanceSeeder::class,
             ViolationSeeder::class,

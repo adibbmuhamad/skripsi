@@ -10,7 +10,7 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'class_room', 'parent_email', 'nisn', 'address',
+        'name', 'class_room_id', 'parent_email', 'nisn', 'address',
     ];
 
     // Relasi dengan Attendance
@@ -35,5 +35,10 @@ class Student extends Model
     public function healthReports()
     {
         return $this->hasMany(HealthReport::class);
+    }
+
+    public function classRoom()
+    {
+        return $this->belongsTo(ClassRoom::class, 'class_room_id');
     }
 }

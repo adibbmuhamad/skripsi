@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Student;
+use App\Models\ClassRoom;
 use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 
 class StudentSeeder extends Seeder
 {
@@ -13,17 +13,18 @@ class StudentSeeder extends Seeder
     {
         $faker = Faker::create('id_ID'); // Menentukan locale Indonesia
 
-        $kelas = ['7A', '7B', '8A', '8B', '9A', '9B'];
+        // Ambil semua class room yang ada
+        $classRooms = ClassRoom::all();
 
-        // Membuat 10 siswa untuk setiap kelas
-        foreach ($kelas as $class_room) {
-            foreach (range(1, 10) as $index) {
+        // Membuat 100 siswa untuk setiap class room
+        foreach ($classRooms as $classRoom) {
+            foreach (range(1, 10) as $index) { // Ubah 10 menjadi 100
                 Student::create([
                     'name' => $faker->name(), // Nama acak dalam bahasa Indonesia
-                    'class_room' => $class_room, // Menggunakan kelas yang sedang diiterasi
+                    'class_room_id' => $classRoom->id, // Menggunakan ID class room
                     'parent_email' => $faker->email(), // Email orangtua acak
                     'nisn' => $faker->numerify('##########'), // Menghasilkan NISN berupa angka acak
-                    'address' => $faker->address(), // Alamat acak (misalnya alamat lengkap)
+                    'address' => $faker->address(), // Alamat acak
                 ]);
             }
         }
