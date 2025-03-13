@@ -73,7 +73,8 @@ class StudentResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('class_room_id')
-                    ->relationship('classRoom', 'name'),
+                    ->relationship('classRoom', 'name')
+                    ->label('Class Room'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
