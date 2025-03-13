@@ -2,20 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ViolationResource\Pages;
-use App\Filament\Resources\ViolationResource\RelationManagers;
-use App\Models\Violation;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
+use App\Models\Violation;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Select;
+use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\ViolationResource\Pages;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ViolationResource\RelationManagers;
 
 class ViolationResource extends Resource
 {
@@ -46,7 +47,7 @@ class ViolationResource extends Resource
                 TextColumn::make('student.name')
                 ->sortable()
                 ->searchable(),
-                TextColumn::make('student.class_room')
+                TextColumn::make('student.classRoom.name') // Perbaiki akses ke relasi classRoom
                 ->sortable()
                 ->label('Class Room'),
                 TextColumn::make('student.nisn')
@@ -57,7 +58,9 @@ class ViolationResource extends Resource
                 TextColumn::make('description')->limit(50),
             ])
             ->filters([
-                //
+            SelectFilter::make('class_room_id') // Filter berdasarkan class room
+                ->relationship('student.classRoom', 'name')
+                ->label('Class Room'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
