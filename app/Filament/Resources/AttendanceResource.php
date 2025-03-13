@@ -9,18 +9,20 @@ use Filament\Forms\Form;
 use App\Models\Attendance;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use App\Exports\AttendancesExport;
+use Filament\Tables\Actions\Action;
+use Maatwebsite\Excel\Facades\Excel;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\TimePicker;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\AttendanceResource\Pages;
 use App\Filament\Resources\AttendanceResource\RelationManagers;
-use Filament\Tables\Filters\SelectFilter;
-use App\Exports\AttendancesExport;
-use Maatwebsite\Excel\Facades\Excel;
-use Filament\Tables\Actions\Action;
+
 
 class AttendanceResource extends Resource
 {
@@ -37,6 +39,9 @@ class AttendanceResource extends Resource
                 ->required()
                 ->searchable() // Tambahkan pencarian
                 ->preload(), // Load opsi lebih awal
+            TimePicker::make('time') // Tambahkan TimePicker
+                ->label('Time')
+                ->required(),
             DatePicker::make('date')
                 ->label('Date')
                 ->required()
@@ -77,6 +82,10 @@ class AttendanceResource extends Resource
             TextColumn::make('student.class_room')
                 ->sortable()
                 ->label('Class Room'),
+            TextColumn::make('time') // Tambahkan kolom waktu
+                ->sortable()
+                ->label('Time')
+                ->time('H:i'), // Format waktu
             TextColumn::make('date')
                 ->sortable()
                 ->date('d M Y'),

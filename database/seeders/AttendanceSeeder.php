@@ -29,6 +29,7 @@ class AttendanceSeeder extends Seeder
                 Attendance::create([
                     'student_id' => $student->id,
                     'date' => $currentDate->format('Y-m-d'),
+                    'time' => $faker->time('H:i:s'),
                     'status' => $status,
                     'permission_reason' => $permissionReason,
                 ]);
