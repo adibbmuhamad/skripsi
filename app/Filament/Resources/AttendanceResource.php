@@ -111,6 +111,13 @@ class AttendanceResource extends Resource
                 }),
             ])
             ->filters([
+                Tables\Filters\Filter::make('today')
+                ->label('Today')
+                ->query(fn (Builder $query): Builder => $query->whereDate('date', Carbon::today())),
+
+                Tables\Filters\Filter::make('this_week')
+                ->label('This Week')
+                ->query(fn (Builder $query): Builder => $query->whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])),
                 SelectFilter::make('month')
                     ->label('Filter by Month')
                     ->options([
@@ -127,7 +134,6 @@ class AttendanceResource extends Resource
                         '11' => 'November',
                         '12' => 'December',
                     ])
-                    ->default(now()->format('m'))
                     ->query(function (Builder $query, $data) {
                         if ($data['value']) {
                             $query->whereMonth('date', $data['value']);
