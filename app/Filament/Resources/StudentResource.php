@@ -33,6 +33,20 @@ class StudentResource extends Resource
             TextInput::make('name')
                 ->label('Name')
                 ->required(),
+            Select::make('gender') // Tambahkan jenis kelamin
+                ->label('Gender')
+                ->options([
+                    'male' => 'Male',
+                    'female' => 'Female',
+                ])
+                ->required(),
+            TextInput::make('parent_name') // Tambahkan nama orang tua
+                ->label('Parent Name')
+                ->required(),
+            TextInput::make('phone_number') // Tambahkan nomor handphone
+                ->label('Phone Number')
+                ->required()
+                ->maxLength(15), // Batasi panjang nomor handphone
             Select::make('class_room_id')
                 ->label('Class Room')
                 ->relationship('classRoom', 'name')
@@ -58,9 +72,18 @@ class StudentResource extends Resource
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(), // Aktifkan search untuk kolom name
+                TextColumn::make('gender') // Tampilkan jenis kelamin
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('classRoom.name')
                     ->sortable()
                     ->label('Class Room'),
+                TextColumn::make('parent_name') // Tampilkan nama orang tua
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('phone_number') // Tampilkan nomor handphone
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('parent_email')
                     ->sortable()
                     ->searchable(), // Aktifkan search untuk kolom parent_email

@@ -18,13 +18,16 @@ class StudentSeeder extends Seeder
 
         // Membuat 100 siswa untuk setiap class room
         foreach ($classRooms as $classRoom) {
-            foreach (range(1, 10) as $index) { // Ubah 10 menjadi 100
+            foreach (range(1, 10) as $index) { // Ubah 10 menjadi 100 jika ingin lebih banyak siswa
                 Student::create([
                     'name' => $faker->name(), // Nama acak dalam bahasa Indonesia
                     'class_room_id' => $classRoom->id, // Menggunakan ID class room
                     'parent_email' => $faker->email(), // Email orangtua acak
                     'nisn' => $faker->numerify('##########'), // Menghasilkan NISN berupa angka acak
                     'address' => $faker->address(), // Alamat acak
+                    'gender' => $faker->randomElement(['male', 'female']), // Jenis kelamin acak
+                    'parent_name' => $faker->name(), // Nama orang tua acak
+                    'phone_number' => $faker->phoneNumber(), // Nomor handphone acak
                 ]);
             }
         }
