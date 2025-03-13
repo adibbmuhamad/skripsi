@@ -89,12 +89,6 @@ class AttendanceResource extends Resource
             TextColumn::make('date')
                 ->sortable()
                 ->date('d M Y'),
-            TextColumn::make('student.parent_email')
-                ->label('Parent Email')
-                ->searchable(),
-            TextColumn::make('student.nisn')
-                ->label('NISN')
-                ->searchable(),
             TextColumn::make('student.address')
                 ->label('Address')
                 ->limit(30)
