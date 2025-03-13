@@ -34,7 +34,7 @@ class StudentResource extends Resource
                 ->label('Name')
                 ->required(),
             Select::make('class_room')
-                ->label('Class_room')
+                ->label('Class Room')
                 ->required()
                 ->options([ // Menambahkan opsi kelas
                     '7A' => '7A',
@@ -66,7 +66,8 @@ class StudentResource extends Resource
                     ->sortable()
                     ->searchable(), // Aktifkan search untuk kolom name
                 TextColumn::make('class_room')
-                    ->sortable(),
+                    ->sortable()
+                    ->label('Class Room'),
                 TextColumn::make('parent_email')
                     ->sortable()
                     ->searchable(), // Aktifkan search untuk kolom parent_email

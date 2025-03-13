@@ -46,9 +46,9 @@ class ViolationResource extends Resource
                 TextColumn::make('student.name')
                 ->sortable()
                 ->searchable(),
-                TextColumn::make('student.class')
+                TextColumn::make('student.class_room')
                 ->sortable()
-                ->label('Class'),
+                ->label('Class Room'),
                 TextColumn::make('student.nisn')
                 ->sortable()
                 ->label('NISN')

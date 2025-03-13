@@ -74,9 +74,9 @@ class AttendanceResource extends Resource
                     'absent' => 'danger',
                     'permission' => 'warning',
                 }),
-            TextColumn::make('student.class')
+            TextColumn::make('student.class_room')
                 ->sortable()
-                ->label('Class'),
+                ->label('Class Room'),
             TextColumn::make('date')
                 ->sortable()
                 ->date('d M Y'),
