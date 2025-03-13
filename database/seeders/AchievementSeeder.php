@@ -24,6 +24,7 @@ class AchievementSeeder extends Seeder
                 'student_id' => $student->id,
                 'achievement_name' => $faker->word(), // Menghasilkan kata dalam bahasa Indonesia
                 'description' => $faker->sentence(), // Menghasilkan kalimat dalam bahasa Indonesia
+                'date' => $faker->date(), // Menghasilkan tanggal acak
                 'photo' => $photo, // Menyimpan nama file gambar
             ]);
         }

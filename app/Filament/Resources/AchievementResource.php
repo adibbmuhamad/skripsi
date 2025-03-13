@@ -13,6 +13,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
@@ -34,11 +35,15 @@ class AchievementResource extends Resource
                 ->label('Student')
                 ->required(),
             TextInput::make('achievement_name')
-                ->label('Achievement Name')
+                ->label('Category')
                 ->required(),
             Textarea::make('description')
                 ->label('Description')
                 ->required(),
+            DatePicker::make('date') // Tambahkan kolom tanggal
+                ->label('Date')
+                ->required()
+                ->default(now()), // Tanggal default
             FileUpload::make('photo') // Menambahkan kolom foto
                 ->label('Photo')
                 ->image() // Tipe file gambar
@@ -63,11 +68,15 @@ class AchievementResource extends Resource
                 ->label('NISN')
                 ->searchable(),
                 TextColumn::make('achievement_name')
-                ->sortable()
-                ->searchable(),
+                    ->label('Category')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('description')
                 ->limit(50)
                 ->searchable(),
+                TextColumn::make('date') // Tambahkan kolom tanggal
+                ->sortable()
+                ->date('d M Y'), // Format tanggal
                 TextColumn::make('photo')->formatStateUsing(fn ($state) => $state ? "<img src='/storage/{$state}' alt='Photo' class='w-20 h-20'>" : 'No photo')
                 ->html() // Menampilkan foto pada kolom tabel
             ])
