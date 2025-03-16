@@ -33,6 +33,7 @@ class DetailHandler extends Handlers
         $query = QueryBuilder::for(
             $query->where(static::getKeyName(), $id)
         )
+            ->with('classRoom') // Muat relasi classRoom
             ->first();
 
         if (!$query) return static::sendNotFoundResponse();

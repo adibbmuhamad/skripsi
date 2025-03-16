@@ -18,6 +18,19 @@ class StudentTransformer extends JsonResource
      */
     public function toArray($request)
     {
-        return $this->resource->toArray();
+        return [
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            'parent_email' => $this->resource->parent_email,
+            'nisn' => $this->resource->nisn,
+            'address' => $this->resource->address,
+            'created_at' => $this->resource->created_at,
+            'updated_at' => $this->resource->updated_at,
+            'class_room_id' => $this->resource->class_room_id,
+            'class_room_name' => $this->resource->classRoom ? $this->resource->classRoom->name : null, // Tambahkan nama kelas
+            'gender' => $this->resource->gender,
+            'parent_name' => $this->resource->parent_name,
+            'phone_number' => $this->resource->phone_number,
+        ];
     }
 }
