@@ -11,9 +11,8 @@ class PaginationHandler extends Handlers {
     public static string | null $uri = '/';
     public static string | null $resource = StudentResource::class;
 
-    //Public API
+    // Public API
     public static bool $public = true;
-
 
     /**
      * List of Student
@@ -26,12 +25,11 @@ class PaginationHandler extends Handlers {
         $query = static::getEloquentQuery();
 
         $query = QueryBuilder::for($query)
-        ->allowedFields($this->getAllowedFields() ?? [])
-        ->allowedSorts($this->getAllowedSorts() ?? [])
-        ->allowedFilters($this->getAllowedFilters() ?? [])
-        ->allowedIncludes($this->getAllowedIncludes() ?? [])
-        ->paginate(request()->query('per_page'))
-        ->appends(request()->query());
+            ->allowedFields($this->getAllowedFields() ?? [])
+            ->allowedSorts($this->getAllowedSorts() ?? [])
+            ->allowedFilters($this->getAllowedFilters() ?? [])
+            ->allowedIncludes($this->getAllowedIncludes() ?? [])
+            ->get();
 
         return StudentTransformer::collection($query);
     }
