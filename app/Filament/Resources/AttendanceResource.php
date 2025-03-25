@@ -39,12 +39,12 @@ class AttendanceResource extends Resource
                 ->required()
                 ->searchable() // Tambahkan pencarian
                 ->preload(), // Load opsi lebih awal
-                TimePicker::make('clock_in')
+            TimePicker::make('clock_in')
                 ->label('Clock In')
                 ->required(),
             TimePicker::make('clock_out')
                 ->label('Clock Out')
-                ->required(),
+                ->required(fn ($get) => $get('status') === 'present'), // Required only if status is 'present'
             DatePicker::make('date')
                 ->label('Date')
                 ->required()
