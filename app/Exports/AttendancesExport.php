@@ -25,10 +25,11 @@ class AttendancesExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             'Student Name',
-            'Class',
+            'Class Room',
             'Status',
             'Date',
-            'Time',
+            'Clock In',
+            'Clock Out',
             'Permission Reason',
             'Parent Email',
             'NISN',
@@ -40,10 +41,11 @@ class AttendancesExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             $attendance->student->name,
-            $attendance->student->class,
+            $attendance->student->classRoom->name,
             $attendance->status,
             $attendance->date,
-            $attendance->time,
+            $attendance->clock_in ?? '-', // Add clock_in
+            $attendance->clock_out ?? '-', // Add clock_out
             $attendance->permission_reason ?? '-',
             $attendance->student->parent_email,
             $attendance->student->nisn,
