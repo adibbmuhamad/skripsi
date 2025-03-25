@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('attendances', function (Blueprint $table) {
-            $table->time('time')->nullable(); // Menambahkan kolom waktu
+            $table->time('clock_in')->nullable();
+            $table->time('clock_out')->nullable();
         });
     }
 
@@ -22,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('attendances', function (Blueprint $table) {
-            $table->dropColumn('time');
+            //
         });
     }
 };

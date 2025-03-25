@@ -26,10 +26,15 @@ class AttendanceSeeder extends Seeder
                 $status = $this->generateStatus($currentDate);
                 $permissionReason = $status === 'permission' ? $this->generatePermissionReason($faker) : null;
 
+                // Generate clock in and clock out times
+                $clockIn = $this->generateClockInTime($faker);
+                $clockOut = $status === 'present' ? $this->generateClockOutTime($faker) : null;
+
                 Attendance::create([
                     'student_id' => $student->id,
                     'date' => $currentDate->format('Y-m-d'),
-                    'time' => $faker->time('H:i:s'),
+                    'clock_in' => $clockIn,
+                    'clock_out' => $clockOut,
                     'status' => $status,
                     'permission_reason' => $permissionReason,
                 ]);
@@ -71,5 +76,21 @@ class AttendanceSeeder extends Seeder
         ];
 
         return $faker->randomElement($reasons);
+    }
+
+    private function generateClockInTime($faker)
+    {
+        // Generate a random time between 07:00 and 07:30
+        $hour = 7;
+        $minute = $faker->numberBetween(0, 30);
+        return Carbon::createFromTime($hour, $minute)->format('H:i:s');
+    }
+
+    private function generateClockOutTime($faker)
+    {
+        // Generate a random time between 13:00 and 13:30
+        $hour = 13;
+        $minute = $faker->numberBetween(0, 30);
+        return Carbon::createFromTime($hour, $minute)->format('H:i:s');
     }
 }

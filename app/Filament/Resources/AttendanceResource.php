@@ -39,8 +39,11 @@ class AttendanceResource extends Resource
                 ->required()
                 ->searchable() // Tambahkan pencarian
                 ->preload(), // Load opsi lebih awal
-            TimePicker::make('time') // Tambahkan TimePicker
-                ->label('Time')
+                TimePicker::make('clock_in')
+                ->label('Clock In')
+                ->required(),
+            TimePicker::make('clock_out')
+                ->label('Clock Out')
                 ->required(),
             DatePicker::make('date')
                 ->label('Date')
@@ -82,10 +85,14 @@ class AttendanceResource extends Resource
             TextColumn::make('student.classRoom.name') // Perbaiki akses ke relasi classRoom
                     ->sortable()
                     ->label('Class Room'),
-            TextColumn::make('time') // Tambahkan kolom waktu
-                ->sortable()
-                ->label('Time')
-                ->time('H:i'), // Format waktu
+                    TextColumn::make('clock_in')
+                    ->sortable()
+                    ->label('Clock In')
+                    ->time('H:i'),
+                TextColumn::make('clock_out')
+                    ->sortable()
+                    ->label('Clock Out')
+                    ->time('H:i'),
             TextColumn::make('date')
                 ->sortable()
                 ->date('d M Y'),
