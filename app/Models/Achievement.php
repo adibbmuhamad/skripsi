@@ -10,7 +10,7 @@ class Achievement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'student_id', 'achievement_name', 'description', 'photo',
+        'student_id', 'achievement_name', 'description', 'date', 'category'
     ];
 
     // Relasi dengan Student

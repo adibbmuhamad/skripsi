@@ -35,6 +35,9 @@ class AchievementResource extends Resource
                 ->label('Student')
                 ->required(),
             TextInput::make('achievement_name')
+                ->label('Title')
+                ->required(),
+            TextInput::make('category')
                 ->label('Category')
                 ->required(),
             Textarea::make('description')
@@ -44,12 +47,6 @@ class AchievementResource extends Resource
                 ->label('Date')
                 ->required()
                 ->default(now()), // Tanggal default
-            FileUpload::make('photo') // Menambahkan kolom foto
-                ->label('Photo')
-                ->image() // Tipe file gambar
-                ->disk('public') // Tentukan disk untuk penyimpanan (pastikan konfigurasi sudah ada di `config/filesystems.php`)
-                ->directory('achievements') // Folder tempat foto disimpan
-                ->required(), // Pastikan foto diupload
         ]);
     }
 
@@ -68,6 +65,10 @@ class AchievementResource extends Resource
                 ->label('NISN')
                 ->searchable(),
                 TextColumn::make('achievement_name')
+                    ->label('Title')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('category')
                     ->label('Category')
                     ->sortable()
                     ->searchable(),
@@ -77,8 +78,6 @@ class AchievementResource extends Resource
                 TextColumn::make('date') // Tambahkan kolom tanggal
                 ->sortable()
                 ->date('d M Y'), // Format tanggal
-                TextColumn::make('photo')->formatStateUsing(fn ($state) => $state ? "<img src='/storage/{$state}' alt='Photo' class='w-20 h-20'>" : 'No photo')
-                ->html() // Menampilkan foto pada kolom tabel
             ])
             ->filters([
                 SelectFilter::make('class_room_id') // Filter berdasarkan class room

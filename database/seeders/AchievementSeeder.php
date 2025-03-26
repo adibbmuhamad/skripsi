@@ -16,16 +16,15 @@ class AchievementSeeder extends Seeder
 
         $students = Student::all();
 
+         // Daftar kategori dalam bahasa Indonesia
+        $categories = ['Sains', 'Seni', 'Olahraga', 'Teknologi', 'Sastra'];
         foreach ($students as $student) {
-            // Tentukan gambar dummy yang akan diupload
-            $photo = 'achievements/dummy' . rand(1, 3) . '.jpg'; // Misalnya gambar dummy1.jpg, dummy2.jpg, dummy3.jpg
-
             Achievement::create([
                 'student_id' => $student->id,
                 'achievement_name' => $faker->word(), // Menghasilkan kata dalam bahasa Indonesia
+                'category' => $faker->randomElement($categories), // Memilih kategori acak dari daftar
                 'description' => $faker->sentence(), // Menghasilkan kalimat dalam bahasa Indonesia
                 'date' => $faker->date(), // Menghasilkan tanggal acak
-                'photo' => $photo, // Menyimpan nama file gambar
             ]);
         }
     }
