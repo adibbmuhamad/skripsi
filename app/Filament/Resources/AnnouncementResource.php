@@ -26,8 +26,16 @@ class AnnouncementResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('body')
+                Forms\Components\Select::make('category')
+                    ->options([
+                        'important' => 'Important',
+                        'info' => 'Info',
+                        'event' => 'Event',
+                    ])
                     ->required()
+                    ->label('Category'),
+                Forms\Components\Textarea::make('description')
+                    ->label('Description')
                     ->columnSpanFull(),
                 Forms\Components\DateTimePicker::make('published_at')
                     ->label('Published At')
@@ -41,6 +49,12 @@ class AnnouncementResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('category')
+                    ->label('Category')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->label('Description')
+                    ->limit(50),
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()
                     ->sortable(),

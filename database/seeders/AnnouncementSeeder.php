@@ -11,13 +11,16 @@ class AnnouncementSeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = \Faker\Factory::create('id_ID'); // Menggunakan Faker dengan bahasa Indonesia
+        $faker = \Faker\Factory::create('id_ID'); // Using Faker with Indonesian locale
+
+        $categories = ['important', 'info', 'event']; // Define the categories in English
 
         for ($i = 0; $i < 10; $i++) {
             Announcement::create([
-                'title' => $faker->sentence(6), // Judul pengumuman
-                'body' => $faker->paragraphs(3, true), // Isi pengumuman
-                'published_at' => Carbon::now()->subDays(rand(1, 30)), // Tanggal publikasi
+                'title' => $faker->sentence(6), // Announcement title
+                'category' => $faker->randomElement($categories), // Randomly select a category
+                'description' => $faker->sentence(10), // Short description
+                'published_at' => Carbon::now()->subDays(rand(1, 30)), // Publication date
             ]);
         }
     }
