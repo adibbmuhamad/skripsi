@@ -10,7 +10,7 @@ class StudentDetailController extends Controller
     public function getStudentDetail(Request $request, $id)
     {
         // Ambil data siswa berdasarkan ID
-        $student = Student::find($id);
+        $student = Student::with('classRoom')->find($id); // Mengambil relasi classRoom
 
         // Periksa apakah siswa ditemukan
         if (!$student) {
@@ -25,7 +25,20 @@ class StudentDetailController extends Controller
 
         // Kembalikan data siswa dan relasi dalam bentuk JSON
         return response()->json([
-            'student' => $student,
+            'student' => [
+                'id' => $student->id,
+                'name' => $student->name,
+                'parent_email' => $student->parent_email,
+                'nisn' => $student->nisn,
+                'address' => $student->address,
+                'created_at' => $student->created_at,
+                'updated_at' => $student->updated_at,
+                'class_room_id' => $student->class_room_id,
+                'class_room_name' => $student->classRoom ? $student->classRoom->name : null, // Menampilkan nama kelas
+                'gender' => $student->gender,
+                'parent_name' => $student->parent_name,
+                'phone_number' => $student->phone_number,
+            ],
             'achievements' => [
                 'data' => $achievements,
             ],
