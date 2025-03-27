@@ -16,15 +16,21 @@ class AchievementSeeder extends Seeder
 
         $students = Student::all();
 
-         // Daftar kategori dalam bahasa Indonesia
+        // Memastikan ada siswa sebelum membuat pencapaian
+        if ($students->isEmpty()) {
+            return; // Tidak ada siswa, tidak perlu melanjutkan
+        }
+
+        // Daftar kategori dalam bahasa Indonesia
         $categories = ['Sains', 'Seni', 'Olahraga', 'Teknologi', 'Sastra'];
+
         foreach ($students as $student) {
             Achievement::create([
                 'student_id' => $student->id,
-                'achievement_name' => $faker->word(), // Menghasilkan kata dalam bahasa Indonesia
+                'achievement_name' => $faker->sentence(3), // Menghasilkan nama pencapaian yang lebih deskriptif
                 'category' => $faker->randomElement($categories), // Memilih kategori acak dari daftar
-                'description' => $faker->sentence(), // Menghasilkan kalimat dalam bahasa Indonesia
-                'date' => $faker->date(), // Menghasilkan tanggal acak
+                'description' => $faker->paragraph(2), // Menghasilkan deskripsi yang lebih panjang
+                'date' => $faker->dateTimeBetween('2023-01-01', '2025-12-31')->format('Y-m-d'), // Menghasilkan tanggal acak dalam rentang 2023-2025
             ]);
         }
     }
