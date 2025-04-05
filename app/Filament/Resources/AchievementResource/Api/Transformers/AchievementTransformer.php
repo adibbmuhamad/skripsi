@@ -9,7 +9,6 @@ use App\Models\Achievement;
  */
 class AchievementTransformer extends JsonResource
 {
-
     /**
      * Transform the resource into an array.
      *
@@ -18,6 +17,16 @@ class AchievementTransformer extends JsonResource
      */
     public function toArray($request)
     {
-        return $this->resource->toArray();
+        return [
+            'id' => $this->resource->id,
+            'student_name' => $this->resource->student ? $this->resource->student->name : null,
+            'class_room' => $this->resource->student && $this->resource->student->classRoom ? $this->resource->student->classRoom->name : null,
+            'nisn' => $this->resource->student ? $this->resource->student->nisn : null,
+            'achievement_name' => $this->resource->achievement_name,
+            'category' => $this->resource->category,
+            'description' => $this->resource->description,
+            'created_at' => $this->resource->created_at->toDateTimeString(),
+            'updated_at' => $this->resource->updated_at->toDateTimeString(),
+        ];
     }
 }
