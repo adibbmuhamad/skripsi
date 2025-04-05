@@ -31,9 +31,8 @@ class PaginationHandler extends Handlers {
         ->allowedFilters($this->getAllowedFilters() ?? [])
         ->allowedIncludes($this->getAllowedIncludes() ?? [])
         ->allowedIncludes(['student'])
-        ->paginate(request()->query('per_page'))
-        ->appends(request()->query());
-
+        ->get(); // Mengambil semua data tanpa pagination
+        
         return AchievementTransformer::collection($query);
     }
 }
