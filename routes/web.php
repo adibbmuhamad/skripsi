@@ -7,6 +7,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\HealthReportController;
 use App\Http\Controllers\StudentDetailController;
+use App\Http\Controllers\StudentController;
 
 Route::get('/', function () {
     return redirect('/admin/login');
@@ -19,3 +20,5 @@ Route::get('api/health-report/history/{nisn}', [HealthReportController::class, '
 Route::get('api/violation/history/{nisn}', [ViolationController::class, 'getViolationByNisn']);
 Route::get('api/student/{id}/detail', [StudentDetailController::class, 'getStudentDetail']);
 Route::get('api/classrooms', [ClassRoomController::class, 'getClassRooms']);
+Route::get('api/liststudents', [StudentController::class, 'getListStudents']);
+
