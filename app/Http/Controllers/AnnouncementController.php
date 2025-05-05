@@ -29,30 +29,4 @@ class AnnouncementController extends Controller
             ]
         ]);
     }
-
-    /**
-     * Menambah pengumuman baru
-     */
-    public function createAnnouncement(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|max:255',
-            'category' => 'required|in:important,info,event',
-            'description' => 'required',
-            'published_at' => 'nullable|date',
-        ]);
-
-        $announcement = Announcement::create([
-            'title' => $request->title,
-            'category' => $request->category,
-            'description' => $request->description,
-            'published_at' => $request->published_at,
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Announcement created successfully',
-            'data' => $announcement
-        ]);
-    }
 }
